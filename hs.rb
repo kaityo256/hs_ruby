@@ -31,12 +31,12 @@ def make_array(l,n)
   r
 end
 
-def check_minimal(t,level,e)
+def check_minimal(t,k,e)
   v = t
   while v!=0
     t2 = v & -v
     t3 = t ^ t2
-    if e.slice(0..(level-1)).collect{|ei| (ei & t3)!=0}.inject(:&)
+    if e.slice(0..(k-1)).collect{|ei| (ei & t3)!=0}.inject(:&)
       return false
     end
     v = v ^ t2
@@ -44,20 +44,20 @@ def check_minimal(t,level,e)
   return true
 end
 
-def search(level, t, e, r)
-  return if !check_minimal(t,level,e)
-  if level == e.size
+def search(k, t, e, r)
+  return if !check_minimal(t,k,e)
+  if k == e.size
     r.push t
     return
   end
-  if (t & e[level]) !=0
-    search(level+1,t,e,r)
+  if (t & e[k]) !=0
+    search(k+1,t,e,r)
     return
   end
-  v = e[level]
+  v = e[k]
   while v!=0
     t2 = v & -v
-    search(level + 1, t | t2, e,r)
+    search(k + 1, t | t2, e,r)
     v = v ^ t2
   end
 end
