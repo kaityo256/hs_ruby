@@ -22,6 +22,14 @@ class Fixnum
   end
 end
 
+class Array
+  def show
+    self.each do |ri|
+      puts ri.to_b
+    end
+  end
+end
+
 def make_array(l,n)
   r = []
   a = [1] * l + [0] * ($MAX-l)
@@ -62,15 +70,29 @@ def search(k, t, e, r)
   end
 end
 
-srand(1)
-e = make_array(4,10)
-puts "input"
-e.each do |ei|
-  puts ei.to_b + " : " + ei.to_a 
+def test
+  srand(1)
+  e = make_array(4,10)
+  puts "input"
+  e.each do |ei|
+    puts ei.to_b + " : " + ei.to_a 
+  end
+  r = []
+  puts "hitting sets"
+  search(0,0,e,r)
+  r.each do |ri|
+    puts ri.to_b + " : " + ri.to_a
+  end
 end
-r = []
-puts "hitting sets"
-search(0,0,e,r)
-r.each do |ri|
-  puts ri.to_b + " : " + ri.to_a
+
+def from_stdin
+  e = []
+  while line=gets
+    e.push line.to_i(2)
+  end
+  r = []
+  search(0,0,e,r)
+  r.show
 end
+
+test
