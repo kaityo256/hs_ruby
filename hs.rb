@@ -1,6 +1,6 @@
 $MAX=8 # Number of bits
 
-class Fixnum
+class Integer
   def to_b s = ""
     v = self
     $MAX.times{|i|
@@ -88,6 +88,7 @@ end
 def from_stdin
   e = []
   while line=gets
+    $MAX = line.length  if $MAX < line.length
     e.push line.to_i(2)
   end
   r = []
