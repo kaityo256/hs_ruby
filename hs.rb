@@ -53,7 +53,6 @@ def check_minimal(t,k,e)
 end
 
 def search(k, t, e, r)
-  return if !check_minimal(t,k,e)
   if k == e.size
     r.push t
     return
@@ -65,7 +64,9 @@ def search(k, t, e, r)
   v = e[k]
   while v!=0
     t2 = v & -v
-    search(k + 1, t | t2, e,r)
+    if check_minimal(t|t2,k+1,e)
+      search(k + 1, t | t2, e,r)
+    end
     v = v ^ t2
   end
 end
